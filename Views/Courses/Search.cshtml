@@ -1,0 +1,33 @@
+﻿@model CourseReg.Models.ViewModels.SearchViewModel
+
+@{
+    ViewData["Title"] = "Search Courses";
+}
+<h1>Search Courses</h1>
+<br />
+<p>To search courses, enter 2 or more characters the course title contains</p>
+<br />
+
+<form asp-action="Search" method="post">
+    <div class="row">
+        <div class="col-md-7">
+            <span asp-validation-for="SearchString" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label asp-for="SearchString" class="control-label"></label>
+        </div>
+        <div class="col-md-5">
+            <input asp-for="SearchString" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <a asp-action="Index">Show all courses</a> 
+        </div>
+    </div>
+</form>

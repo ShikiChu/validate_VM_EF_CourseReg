@@ -1,0 +1,41 @@
+﻿@model CourseReg.Models.ViewModels.CourseViewModel
+@using CourseReg.Models.DataAccess;
+@using CourseReg.Controllers;
+@{
+    
+    ViewData["Title"] = "Edit Registrations";
+}
+<h1>Edit Registrations</h1>
+<br />
+<p>Select or de-select students to change the registation for course <span style="font-weight:bold">@Model.TheCourse.CourseId -  @Model.TheCourse.CourseTitle</span></p>
+<p>Maximum number of students can register into this course: @Model.TheCourse.MaxRegistrations</p>
+<p>Current number of students registered in this course: @Model.TheCourse.Students.Count</p>
+
+<form asp-action="EditRegistrations">
+    <span asp-validation-for="StudentSelections" class="text-danger"></span>
+        <table class="table">
+            <thead>
+                <tr>
+                <th>Students</th>
+                <th>Select to Register</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.StudentSelections.Count; i++)
+                {
+                    <tr>
+                        <td>
+                        <input type="hidden" asp-for="StudentSelections[i].TheStudent.StudentNum" />
+                        <input type="hidden" asp-for="StudentSelections[i].TheStudent.Name" />
+                        @Model.StudentSelections[i].TheStudent.StudentNum - @Model.StudentSelections[i].TheStudent.Name
+                        </td>
+                    <td> <input asp-for="StudentSelections[i].Selected" /></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <input type="hidden" asp-for="TheCourse.CourseId"/>
+    <button type="submit" class="btn btn-primary" value="">Save</button>
+    <br/><a asp-action="Index">Back to List</a>
+</form>
+<br />

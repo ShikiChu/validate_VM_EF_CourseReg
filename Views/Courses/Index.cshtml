@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CourseReg.Models.DataAccess.Course>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Search">Search Courses</a>
+</p>
+@if (!string.IsNullOrWhiteSpace((ViewData["searchString"] as string)))
+{
+    <p>The following courses are found with the search string <span style="font-weight:bold">@ViewData["searchString"]</span></p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Course Code
+            </th>
+            <th>
+                Course Title
+            </th>
+            <th>
+               Hours/Week
+            </th>
+            <th>
+                Current <br/>
+                Registrations
+            </th>
+            <th>
+                Maximum <br />
+                Registrations
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.CourseId
+            </td>
+            <td>
+                @item.CourseTitle
+            </td>
+            <td>
+                @item.HoursPerWeek
+            </td>
+            <td>
+                @item.Students.Count()
+            </td>
+            <td>
+                @item.MaxRegistrations
+            </td>
+            <td>
+                <a asp-action="EditRegistrations" asp-route-id="@item.CourseId" title="Edit registrations">Edit</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
